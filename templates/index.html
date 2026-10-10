@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Explainable AI Lead Scoring System</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background: #17202a;
+            color: white;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 35px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .intro h1 {
+            margin-bottom: 10px;
+        }
+
+        .intro p {
+            color: #555;
+        }
+
+        .section-title {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e5e7eb;
+            font-size: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        input,
+        select {
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .button-area {
+            margin-top: 35px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 6px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+
+        @media (max-width: 700px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+
+    <div class="brand">
+        Explainable AI Lead Scoring System
+    </div>
+
+    <div class="nav">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/">Assess Lead</a>
+        <a href="/upload">Upload Leads</a>
+        <a href="/history">Prediction History</a>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <div class="intro">
+        <h1>Customer Lead Assessment</h1>
+
+        <p>
+            Enter customer information to generate a lead score,
+            priority level and explanation.
+        </p>
+    </div>
+
+    <form action="/predict" method="POST">
+
+        <!-- Customer Profile -->
+        <div class="section-title">
+            Customer Profile
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Age</label>
+                <input type="number" name="age" required>
+            </div>
+
+            <div class="form-group">
+                <label>Job</label>
+                <select name="job">
+                    <option value="admin.">Admin</option>
+                    <option value="blue-collar">Blue Collar</option>
+                    <option value="entrepreneur">Entrepreneur</option>
+                    <option value="housemaid">Housemaid</option>
+                    <option value="management">Management</option>
+                    <option value="retired">Retired</option>
+                    <option value="self-employed">Self-Employed</option>
+                    <option value="services">Services</option>
+                    <option value="student">Student</option>
+                    <option value="technician">Technician</option>
+                    <option value="unemployed">Unemployed</option>
+                    <option value="unknown">Unknown</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Marital Status</label>
+                <select name="marital">
+                    <option value="single">Single</option>
+                    <option value="married">Married</option>
+                    <option value="divorced">Divorced</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Education</label>
+                <select name="education">
+                    <option value="primary">Primary</option>
+                    <option value="secondary">Secondary</option>
+                    <option value="tertiary">Tertiary</option>
+                    <option value="unknown">Unknown</option>
+                </select>
+            </div>
+
+        </div>
+
+        <!-- Financial Information -->
+        <div class="section-title">
+            Financial Information
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Account Balance</label>
+                <input type="number" name="balance" required>
+            </div>
+
+            <div class="form-group">
+                <label>Credit Default</label>
+                <select name="default">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Housing Loan</label>
+                <select name="housing">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Personal Loan</label>
+                <select name="loan">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+
+        </div>
+
+        <!-- Campaign Information -->
+        <div class="section-title">
+            Campaign Information
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Contact Type</label>
+                <select name="contact">
+                    <option value="cellular">Cellular</option>
+                    <option value="telephone">Telephone</option>
+                    <option value="unknown">Unknown</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Contact Day</label>
+                <input type="number" name="day" min="1" max="31" required>
+            </div>
+
+            <div class="form-group">
+                <label>Contact Month</label>
+                <select name="month">
+                    <option value="jan">January</option>
+                    <option value="feb">February</option>
+                    <option value="mar">March</option>
+                    <option value="apr">April</option>
+                    <option value="may">May</option>
+                    <option value="jun">June</option>
+                    <option value="jul">July</option>
+                    <option value="aug">August</option>
+                    <option value="sep">September</option>
+                    <option value="oct">October</option>
+                    <option value="nov">November</option>
+                    <option value="dec">December</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Number of Campaign Contacts</label>
+                <input type="number" name="campaign" min="1" required>
+            </div>
+
+            <div class="form-group">
+                <label>Days Since Previous Contact</label>
+                <input type="number" name="pdays" value="-1" required>
+            </div>
+
+            <div class="form-group">
+                <label>Previous Contacts</label>
+                <input type="number" name="previous" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label>Previous Campaign Outcome</label>
+                <select name="poutcome">
+                    <option value="unknown">Unknown</option>
+                    <option value="failure">Failure</option>
+                    <option value="other">Other</option>
+                    <option value="success">Success</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="button-area">
+            <button type="submit">
+                Calculate Lead Score
+            </button>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

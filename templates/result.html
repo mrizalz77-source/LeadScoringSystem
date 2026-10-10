@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lead Scoring Result</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background: #17202a;
+            color: white;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 40px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+        }
+
+        .score-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .score {
+            font-size: 54px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 10px 22px;
+            border-radius: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .High {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .Medium {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .Low {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        .explanation {
+            margin-top: 30px;
+        }
+
+        .explanation h2 {
+            margin-bottom: 18px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px 10px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background-color: #f9fafb;
+        }
+
+        .positive {
+            color: #047857;
+            font-weight: bold;
+        }
+
+        .negative {
+            color: #b91c1c;
+            font-weight: bold;
+        }
+
+        .button-area {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 22px;
+            text-decoration: none;
+            background-color: #2563eb;
+            color: white;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background-color: #1d4ed8;
+        }
+
+        .recommendation {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f0f7ff;
+    border-left: 4px solid #2563eb;
+    border-radius: 6px;
+    line-height: 1.6;
+}
+
+.recommendation h2 {
+    margin-top: 0;
+}
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+
+    <div class="brand">
+        Explainable AI Lead Scoring System
+    </div>
+
+    <div class="nav">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/">Assess Lead</a>
+        <a href="/upload">Upload Leads</a>
+        <a href="/history">Prediction History</a>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <div class="score-section">
+        <h1>Lead Scoring Result</h1>
+
+        <p><strong>Lead ID:</strong> {{ lead_id }}</p>
+
+        <p>Lead Score</p>
+
+        <div class="score">
+            {{ lead_score }} / 100
+        </div>
+
+        <p>Lead Category</p>
+
+        <div class="priority-badge {{ priority }}">
+            {{ priority }}
+        </div>
+    </div>
+
+    <div class="explanation">
+
+        <h2>Why this score?</h2>
+
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>Influence</th>
+            </tr>
+
+            {% for item in shap_features %}
+            <tr>
+                <td>{{ item.feature }}</td>
+
+                <td>
+                    {% if item.shap_value > 0 %}
+                        <span class="positive">Positive</span>
+                    {% else %}
+                        <span class="negative">Negative</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <div class="recommendation">
+    <h2>Sales Recommendation</h2>
+    <p>{{ recommendation }}</p>
+</div>
+
+    </div>
+
+    <div class="button-area">
+        <a href="/" class="button">
+            Score Another Lead
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

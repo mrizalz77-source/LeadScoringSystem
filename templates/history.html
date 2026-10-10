@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction History</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #222;
+        }
+
+        .header {
+            background: #17202a;
+            color: white;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+        }
+
+       
+
+        .container {
+            max-width: 1150px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .history-box {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #f7f8fa;
+        }
+
+        .high {
+            color: #198754;
+            font-weight: bold;
+        }
+
+        .medium {
+            color: #b8860b;
+            font-weight: bold;
+        }
+
+        .low {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 25px;
+            margin-right: 10px;
+            padding: 12px 20px;
+            background: #0d6efd;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+
+    <div class="brand">
+        Explainable AI Lead Scoring System
+    </div>
+
+    <div class="nav">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/">Assess Lead</a>
+        <a href="/upload">Upload Leads</a>
+        <a href="/history">Prediction History</a>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <h1>Prediction History</h1>
+    <p>Previous lead scoring results recorded by the system.</p>
+
+    <div class="history-box">
+
+    <table>
+        <thead>
+            <tr>
+                <th>Lead ID</th>
+                <th>Date</th>
+                <th>Age</th>
+                <th>Job</th>
+                <th>Lead Score</th>
+                <th>Lead Category</th>
+                <th>Source</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for row in predictions %}
+
+            <tr>
+                <td>L{{ "%03d"|format(row[0]) }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+
+                <td class="{{ row[5]|lower }}">
+                    {{ row[5] }}
+                </td>
+
+                <td>
+                    {% if row[6] == "Batch prediction" %}
+                        CSV Upload
+                    {% else %}
+                        Single Assessment
+                    {% endif %}
+                </td>
+            </tr>
+
+            {% else %}
+
+            <tr>
+                <td colspan="7">
+                    No prediction history available.
+                </td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+        <a href="/dashboard" class="button">
+            Dashboard
+        </a>
+
+        <a href="/" class="button">
+            Assess New Lead
+        </a>
+
+        <a href="/upload" class="button">
+            Upload Leads
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Leads</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #222;
+        }
+
+        .header {
+            background: #17202a;
+            color: white;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .upload-box {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .info {
+            background: #eef5ff;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+
+        input[type="file"] {
+            display: block;
+            margin: 20px 0;
+        }
+
+        .button {
+            background: #0d6efd;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            color: #0d6efd;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+
+    <div class="brand">
+        Explainable AI Lead Scoring System
+    </div>
+
+    <div class="nav">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/">Assess Lead</a>
+        <a href="/upload">Upload Leads</a>
+        <a href="/history">Prediction History</a>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <h1>Upload Leads</h1>
+    <p>Upload multiple customer leads for batch lead scoring.</p>
+
+    <div class="upload-box">
+
+        <h2>CSV File</h2>
+
+        <div class="info">
+            Upload a CSV file containing customer lead information.
+            The system will analyse each customer and generate a lead
+            score and priority level.
+        </div>
+
+        <form action="/upload-predict"
+              method="POST"
+              enctype="multipart/form-data">
+
+            <label><strong>Select CSV file:</strong></label>
+
+            <input type="file"
+                   name="file"
+                   accept=".csv"
+                   required>
+
+            <button type="submit" class="button">
+                Upload and Score Leads
+            </button>
+
+        </form>
+
+        <a href="/dashboard" class="back">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

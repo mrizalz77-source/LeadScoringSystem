@@ -1,0 +1,27 @@
+# Virtual environment
+venv/
+.venv/
+
+# Python temporary files
+__pycache__/
+*.pyc
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local database
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary files
+*.log
+.DS_Store
+
+# API key files
+key
+key.txt
